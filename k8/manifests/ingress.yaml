@@ -6,8 +6,9 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
+    #- host: garax.club
     - host: go-web-app.local
-      http:
+    - http:
         paths:
           - path: /
             pathType: ImplementationSpecific
