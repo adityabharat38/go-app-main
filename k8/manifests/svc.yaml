@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-app-service
+spec:
+  selector:
+    app: go-app
+  type: NodePort
+  ports:
+    - protocol: TCP
+      #system port 
+      port: 80
+      # port on which application is running
+      targetPort: 8080
+      # port on which we are routing the application traffic 
+      nodePort: 30009
