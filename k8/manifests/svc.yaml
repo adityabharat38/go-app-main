@@ -6,12 +6,13 @@ metadata:
 spec:
   selector:
     app: go-app
-  type: NodePort
+  # commneted nodeport as goal is to is to use ingress
+  # usingg cluster ip to ensure that svc is accesable internally but using ingress traffic is
+# still forwareded to svc , ingress is just advanced version of routing traffic . 
+  type: ClusterIP
   ports:
     - protocol: TCP
       #system port 
       port: 80
-      # port on which application is running
+    # removed target port and nodeport as goal is to implement using ingress svc here 
       targetPort: 8080
-      # port on which we are routing the application traffic 
-      nodePort: 30009
