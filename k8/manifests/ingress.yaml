@@ -6,22 +6,22 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    #- host: garax.club
-    - host: go-web-app.local
-    - http:
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: go-app-service
-                port:
-                  number: 80
-          #- path: /courses
-          #  pathType: ImplementationSpecific
-          #  backend:
-          #    service:
-          #      name: go-app-deployment
-          #      port:
-          #        number: 80
+  - host: garax.club
+  # - host: aditya-goapp.local
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: go-app-service
+            port:
+              number: 80
+#          - path: /courses
+#            pathType: ImplementationSpecific
+#            backend:
+#              service:
+#                name: go-app-deployment
+#                port:
+#                  number: 80
 

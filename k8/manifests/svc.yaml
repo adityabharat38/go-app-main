@@ -11,6 +11,7 @@ spec:
     - protocol: TCP
       #system port 
       port: 80
-    # removed target port and nodeport as goal is to implement using ingress svc here 
+    # port on which application is runnign
       targetPort: 8080
+    # port on which we are routing the traffic
       nodePort: 30009
