@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: go-app-service
   namespace: golang
+  labels:
+    app: go-app
 spec:
   selector:
     app: go-app
