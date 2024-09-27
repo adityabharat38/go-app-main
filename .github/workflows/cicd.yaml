@@ -63,13 +63,26 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
       with:
-         version: v0.7.0
+        version: v0.7.0
+        
+    - name: Verify DockerHub credentials (without exposing secrets)
+      run: |
+        if [ -z "${{ secrets.DOCKERHUB_USERNAME }}" ]; then
+          echo "DOCKERHUB_USERNAME is not set"
+        else
+          echo "DOCKERHUB_USERNAME is set"
+        fi
+    
+        if [ -z "${{ secrets.DOCKERHUB_TOKEN }}" ]; then
+          echo "DOCKERHUB_TOKEN is not set"
+        else
+          echo "DOCKERHUB_TOKEN is set"
+        fi
+    
 
     - name: Login to DockerHub
       uses: docker/login-action@v3
       with:
-        echo "DOCKERHUB_USERNAME (first 3 chars): ${DOCKERHUB_USERNAME:0:6}"
-        echo "DOCKERHUB_TOKEN (first 3 chars): ${DOCKERHUB_TOKEN:0:6}"
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
