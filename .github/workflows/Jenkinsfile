@@ -1,0 +1,77 @@
+// pipeline {
+//     agent any
+
+//     stages {
+//         stage('Checkout') {
+//             steps {
+//                 // Check out the code from the repository
+//                 checkout scm
+//             }
+//         }
+//         stage('Set up Go') {
+//             steps {
+//                 // Install Go 1.22 using a tool like SDKMAN or manually set it up if needed
+//                 sh 'export GO_VERSION=1.22'
+//             }
+//         }
+//         stage('Build') {
+//             steps {
+//                 // Build the Go application
+//                 sh 'go build -o go-app-main'
+//             }
+//         }
+//         stage('Test') {
+//             steps {
+//                 // Run tests on the Go application
+//                 sh 'go test ./...'
+//             }
+//         }
+//         stage('Code Quality') {
+//             steps {
+//                 // Run Golangci-lint for code quality checks
+//                 sh 'golangci-lint run'
+//             }
+//         }
+//         stage('Docker Build & Push') {
+//             steps {
+//                 script {
+//                     // Set up Docker Buildx (if necessary)
+//                     sh 'docker buildx create --use'
+
+//                     // Log in to DockerHub
+//                     withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_TOKEN')]) {
+//                         sh 'echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin'
+//                     }
+
+//                     // Build and push the Docker image to DockerHub
+//                     sh """
+//                     docker buildx build --push \
+//                         --tag ${DOCKERHUB_USERNAME}/go-app-main:${BUILD_ID} \
+//                         -f ./Dockerfile .
+//                     """
+//                 }
+//             }
+//         }
+//         stage('Update Helm Chart') {
+//             steps {
+//                 script {
+//                     // Update the Helm chart with the new Docker image tag
+//                     sh """
+//                     sed -i 's/tag: .*/tag: "${BUILD_ID}"/' helm/helm-goapp/values.yaml
+//                     """
+
+//                     // Commit and push the changes back to the repository
+//                     withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+//                         sh """
+//                         git config --global user.email "adityabharat38@gmail.com"
+//                         git config --global user.name "Aditya Bharat"
+//                         git add helm/helm-goapp/values.yaml
+//                         git commit -m "Update tag in Helm chart"
+//                         git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/your-repo-url.git
+//                         """
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }

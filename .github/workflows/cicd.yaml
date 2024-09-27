@@ -1,13 +1,13 @@
 # will add ci file here 
 # CICD using GitHub actions
 
-name: CI/CD
+name: CI/CD # workflow name 
 
 # Exclude the workflow to run on changes to the helm chart
-on:
+on:     # when we push workfloe wwil start
   push:
     branches:
-      - cicd
+      - cicd    # only on push to cicd branch
     paths-ignore:
       - 'helm/**'
       - 'k8s/**'
@@ -15,8 +15,8 @@ on:
 
 jobs:
 
-  build:
-    runs-on: ubuntu-latest
+  build:  # name of job   
+    runs-on: ubuntu-latest    # env on which job should run like agents in jenkins
 
     steps:
     - name: Checkout repository
