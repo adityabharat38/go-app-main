@@ -21,7 +21,7 @@ FROM gcr.io/distroless/base
 COPY --from=base /app/main /app/
 
 # Copy the static files from the previous stage
-# COPY --from=base /app/static ./static
+COPY --from=base /app/static ./static
 
 # Expose the port the app will run on
 EXPOSE 8080
